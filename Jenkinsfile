@@ -28,7 +28,7 @@ pipeline {
 			echo 'Testing successful!'
 			emailext attachLog: true,
                 		subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
-             			body: "Everything worked fine"
+             			body: "Everything worked fine",
                 		recipientProviders: [developers(), requestor()],
                 		to: 'michalpast034@gmail.com'
     	}
