@@ -9,7 +9,7 @@ describe('isRealString', () => {
 	});
 
 	it('should reject string with only spaces', () => {
-		const res = isRealString('    ');
+		const res = isRealString('qw');
 
 		expect(res).toBe(false);
 	});
