@@ -17,15 +17,20 @@ pipeline {
         }
 		failure {
 			echo 'Testing failed!'
-        		mail to: 'michalpast034@gmail.com',
-             			subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             			body: "Something is wrong with ${env.BUILD_URL}"
+			emailext attachLog: true,
+                		subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             			body: "Something is wrong with ${env.BUILD_URL}"}",
+                		recipientProviders: [developers(), requestor()],
+                		to: 'michalpast034@gmail.com'
+             			
     	}
 		success {
 			echo 'Testing successful!'
-        		mail to: 'michalpast034@gmail.com',
-             			subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
+			emailext attachLog: true,
+                		subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
              			body: "Everything worked fine"
+                		recipientProviders: [developers(), requestor()],
+                		to: 'michalpast034@gmail.com'
     	}
     }
 }
