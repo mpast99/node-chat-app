@@ -19,7 +19,7 @@ pipeline {
 			echo 'Testing failed!'
 			emailext attachLog: true,
                 		subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             			body: "Something is wrong with ${env.BUILD_URL}"},
+             			body: "Something is wrong with ${env.BUILD_URL}",
                 		recipientProviders: [developers(), requestor()],
                 		to: 'michalpast034@gmail.com'
              			
