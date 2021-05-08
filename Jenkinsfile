@@ -11,9 +11,6 @@ pipeline {
             }
 	    post { 
 		failure {
-			script {
-				 currentBuild.result = 'ABORTED'
-			}
 			echo 'Building failed!'
 			emailext attachLog: true,
                 		subject: "Failed Building: ${currentBuild.fullDisplayName}",
@@ -36,10 +33,6 @@ pipeline {
     		}
            }
          stage('Test') {
-	    when {
-        expression { currentBuild.result == 'SUCCESS' }
-	}
-      
             steps {
 		script{
                 	echo 'Testing..'
@@ -47,10 +40,7 @@ pipeline {
 		
             }
         }
-        
-    }
-}
-	post { 
+      post { 
         	always { 
             		echo 'Pipeline finished!'
         }
@@ -71,5 +61,9 @@ pipeline {
                 		recipientProviders: [developers(), requestor()],
                 		to: 'michalpast034@gmail.com'
     	}
+    
+}  
     }
+}
+	
 }
