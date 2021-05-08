@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
 		sh 'apt install npm -y'
-		sh 'git pull origin master'
+		sh 'git pull'
 		sh 'npm install'
             }
 	    post { 
