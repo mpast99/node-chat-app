@@ -11,14 +11,13 @@ pipeline {
 	    post { 
 		failure {
 			echo 'Building failed!'
-			currentBuild.result = 'ABORTED'
 			emailext attachLog: true,
                 		subject: "Failed Building: ${currentBuild.fullDisplayName}",
              			body: "${env.BUILD_URL} failed at building stage",
                 		recipientProviders: [developers(), requestor()],
                 		to: 'michalpast034@gmail.com'
              			
-    	}
+    			}
 		success {
 			echo 'Building successful!'
 			emailext attachLog: true,
@@ -26,18 +25,19 @@ pipeline {
              			body: "Building worked fine",
                 		recipientProviders: [developers(), requestor()],
                 		to: 'michalpast034@gmail.com'
-    	}
-    }
-        }
-        stage('Test') {
+    			}
+    		}
+           }
+         stage('Test') {
 	    when {
         expression { currentBuild.result == 'SUCCESS' }
+	}
       
             steps {
 		script{
                 	echo 'Testing..'
 			sh 'npm test'
-		}
+		
             }
         }
         
