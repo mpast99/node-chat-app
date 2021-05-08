@@ -34,8 +34,10 @@ pipeline {
         expression { currentBuild.result == 'SUCCESS' }
       
             steps {
-                echo 'Testing..'
-		sh 'npm test'
+		script{
+                	echo 'Testing..'
+			sh 'npm test'
+		}
             }
         }
         
