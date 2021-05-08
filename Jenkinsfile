@@ -11,6 +11,9 @@ pipeline {
             }
 	    post { 
 		failure {
+			script {
+				 currentBuild.result = 'ABORTED'
+			}
 			echo 'Building failed!'
 			emailext attachLog: true,
                 		subject: "Failed Building: ${currentBuild.fullDisplayName}",
@@ -20,6 +23,9 @@ pipeline {
              			
     			}
 		success {
+			script {
+				currentBuild.result == 'SUCCESS'
+			}
 			echo 'Building successful!'
 			emailext attachLog: true,
                 		subject: "Successful Building: ${currentBuild.fullDisplayName}",
