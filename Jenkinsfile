@@ -24,7 +24,7 @@ pipeline {
     			}
 		success {
 			script {
-				currentBuild.result == 'SUCCESS'
+				currentBuild.result = 'SUCCESS'
 			}
 			echo 'Building successful!'
 			emailext attachLog: true,
