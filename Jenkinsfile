@@ -65,7 +65,7 @@ pipeline {
             steps {
 		script{
                 	echo 'Deploying'
-			sh 'docker build -t NodeChatDeploy -f Dockerfiledeployment .'
+			sh 'docker build -t nodechatdeploy -f Dockerfiledeployment .'
 		
             }
         }
