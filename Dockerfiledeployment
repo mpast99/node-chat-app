@@ -14,4 +14,4 @@ RUN cd ~
 
 COPY . node-chat-app/
 WORKDIR node-chat-app
-RUN npm start
+RUN ls
