@@ -41,11 +41,40 @@ pipeline {
             }
         }
       post { 
+		failure {
+			echo 'Testing failed!'
+			emailext attachLog: true,
+                		subject: "Failed Testing: ${currentBuild.fullDisplayName}",
+             			body: "Something is wrong with ${env.BUILD_URL}",
+                		recipientProviders: [developers(), requestor()],
+                		to: 'michalpast034@gmail.com'
+             			
+    	}
+		success {
+			echo 'Testing successful!'
+			emailext attachLog: true,
+                		subject: "Successful Testing: ${currentBuild.fullDisplayName}",
+             			body: "Everything worked fine",
+                		recipientProviders: [developers(), requestor()],
+                		to: 'michalpast034@gmail.com'
+    	}
+    
+}  
+    }
+          stage('Deploy') {
+            steps {
+		script{
+                	echo 'Deploying'
+			sh 'docker build -t NodeChatDeploy -f Dockerfiledeployment .'
+		
+            }
+        }
+      post { 
         	always { 
             		echo 'Pipeline finished!'
         }
 		failure {
-			echo 'Testing failed!'
+			echo 'Deployment failed!'
 			emailext attachLog: true,
                 		subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
              			body: "Something is wrong with ${env.BUILD_URL}",
@@ -64,6 +93,9 @@ pipeline {
     
 }  
     }
+
+     
+	
 }
 	
 }
